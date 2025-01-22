@@ -41,12 +41,21 @@ function Li({ node, address }: { node: TFolder | TFile; address: number[] }) {
   const [open, setOpen] = useState(false);
   return (
     <li>
-      <button className="flex items-center gap-x-2 h-9 w-full text-left px-2 rounded-md hover:bg-neutral-100" onClick={()=>{
-        if(folder.success) setOpen(prev => !prev);
-      }}>
-        {folder.success ? <FolderIcon className="size-4" aria-hidden /> : <FileIcon className="size-4" aria-hidden />}
+      <button
+        className="flex items-center gap-x-2 h-9 w-full text-left px-2 rounded-md hover:bg-neutral-100"
+        onClick={() => {
+          if (folder.success) setOpen((prev) => !prev);
+        }}
+      >
+        {folder.success ? (
+          <FolderIcon className="size-4" aria-hidden />
+        ) : (
+          <FileIcon className="size-4" aria-hidden />
+        )}
         {node.name}
-        {folder.success && folder.data.children.length>0 && <ChevronDownIcon className="size-4 ml-auto" aria-hidden/>}
+        {folder.success && folder.data.children.length > 0 && (
+          <ChevronDownIcon className="size-4 ml-auto" aria-hidden />
+        )}
       </button>
       {folder.success && (
         <ul className={cn("h-0 overflow-hidden pl-4", open && "h-fit")}>
@@ -60,12 +69,10 @@ function Li({ node, address }: { node: TFolder | TFile; address: number[] }) {
 }
 export default function FileTree() {
   return (
-    <section>
-      <ul className="max-w-xs">
-        {tree.map((n, idx) => (
-          <Li key={n.name} node={n} address={[idx]} />
-        ))}
-      </ul>
-    </section>
+    <ul className="max-w-xs border">
+      {tree.map((n, idx) => (
+        <Li key={n.name} node={n} address={[idx]} />
+      ))}
+    </ul>
   );
 }
